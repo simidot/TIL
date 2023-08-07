@@ -13,12 +13,13 @@ public class RunKiosk {
 		int key = scanner.nextInt();
 		
 		// 키오스크 키가 일치하면 다음 단계 진행
-		if (key==Kiosk.key) {
-			
+		if (key==Kiosk.key) {	
 			// 매장 재고개수 입력받기
 			System.out.println("매장 재고개수를 입력해주세요. ");
 			int inventory = scanner.nextInt();
 			
+			Kiosk kiosk = new Kiosk(inventory);
+
 			while(true) {
 				// 주문방식 입력받기
 				System.out.println("1. 배달 2. 포장 3. 매장 4. 종료 주문방식 번호를 입력해주세요. ");
@@ -30,12 +31,10 @@ public class RunKiosk {
 					break;
 				}		
 				
-				Kiosk kiosk = new Kiosk(inventory);
 				// 메뉴와 개수 입력받기
 				System.out.println("메뉴와 개수를 입력해주세요. ");
 				String menuName = scanner.next();
 				int count = scanner.nextInt();
-				
 				
 				Order order = kiosk.initOrder(menuName, count, orderHow);
 				
@@ -47,6 +46,7 @@ public class RunKiosk {
 				// 입금 가격 입력받기
 				int deposit = scanner.nextInt();
 				
+				// 주문방식 입력에 따라 다른 입력값 받기/ 메소드 사용
 				if (orderHow==1) {
 					System.out.println("주소를 입력해주세요. ");
 					String locate = scanner.next();

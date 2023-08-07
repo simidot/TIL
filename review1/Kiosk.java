@@ -15,7 +15,6 @@ public class Kiosk {
 		if (inventory>=count) {
 			return true;
 		} else {
-			System.out.println("재고가 부족합니다. ");
 			return false;
 		}
 	}
@@ -40,18 +39,18 @@ public class Kiosk {
 			price = 2000;
 		} else {
 			price = 0;
-			System.out.println("메뉴가 없습니다. ");
 		}
 		
 		// 메뉴가 없을 때 null 반환
 		if (price==0) {
+			System.out.println("메뉴가 없습니다. ");
 			return null;
 		}
 		
 		if (isInventory(count)) {
 			if (orderHow ==1) {
 				Order order = new DeliveryOrder(menuName, count, price);
-			return order;
+				return order;
 			} else if (orderHow==2) {
 				Order order = new TakeoutOrder(menuName, count, price);
 				return order;
@@ -62,6 +61,7 @@ public class Kiosk {
 				return null;
 			}
 		} else {
+			System.out.println("재고가 부족합니다. ");
 			return null;
 		}
 	}
