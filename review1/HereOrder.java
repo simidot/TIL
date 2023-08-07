@@ -2,9 +2,18 @@ package review1;
 
 public class HereOrder extends Order {
 	int orderNum;
+	OnHere onHere;
 
 	public HereOrder(String menuName, int count, int price) {
 		super(menuName, count, price);
+	}
+	
+	public interface OnHere {
+		public void successHere (int orderNum, String menuName);
+	}
+	
+	public void setOnHere (OnHere onHere) {
+		this.onHere = onHere;
 	}
 	
 	void setOrderNum (int orderNum) {
@@ -18,7 +27,7 @@ public class HereOrder extends Order {
 		if (deposit >= orderPrice) {
 			int change = deposit - orderPrice;
 			System.out.println("잔돈 "+change+"원입니다. ");
-			System.out.println(orderNum+" 주문번호로 "+menuName+" 매장 주문이 완료되었습니다. ");
+			onHere.successHere(orderNum, menuName);
 			return true;
 		} else {
 			System.out.println("금액이 부족합니다. ");

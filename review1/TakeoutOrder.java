@@ -2,9 +2,18 @@ package review1;
 
 public class TakeoutOrder extends Order {
 	int time;
+	OnTakeout onTakeout;
 
 	public TakeoutOrder(String menuName, int count, int price) {
 		super(menuName, count, price);
+	}
+	
+	public interface OnTakeout {
+		public void successTakeout (int time, String menuName);
+	}
+	
+	public void setOnTakeout (OnTakeout onTakeout) {
+		this.onTakeout = onTakeout;
 	}
 	
 	@Override
@@ -25,7 +34,7 @@ public class TakeoutOrder extends Order {
 		if (deposit >= orderPrice) {
 			int change = deposit - orderPrice;
 			System.out.println("잔돈 "+change+"원입니다. ");
-			System.out.println(time+" 분뒤 "+menuName+" 포장 주문이 완료되었습니다. ");
+			onTakeout.successTakeout(time, menuName);
 			return true;
 		} else {
 			System.out.println("금액이 부족합니다. ");

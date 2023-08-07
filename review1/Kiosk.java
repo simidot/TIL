@@ -1,6 +1,10 @@
 package review1;
 
-public class Kiosk {
+import review1.DeliveryOrder.OnDelivery;
+import review1.HereOrder.OnHere;
+import review1.TakeoutOrder.OnTakeout;
+
+public class Kiosk implements OnDelivery, OnTakeout, OnHere {
 	// 필드 생성 
 	static final int key = 3;
 	int inventory; 
@@ -49,13 +53,16 @@ public class Kiosk {
 		
 		if (isInventory(count)) {
 			if (orderHow ==1) {
-				Order order = new DeliveryOrder(menuName, count, price);
+				DeliveryOrder order = new DeliveryOrder(menuName, count, price);
+				((DeliveryOrder) order).setOnDelivery(this);
 				return order;
 			} else if (orderHow==2) {
 				Order order = new TakeoutOrder(menuName, count, price);
+				((TakeoutOrder) order).setOnTakeout(this);
 				return order;
 			} else if (orderHow==3) {
 				Order order = new HereOrder(menuName, count, price);
+				((HereOrder) order).setOnHere(this);
 				return order;
 			} else {
 				return null;
@@ -65,4 +72,24 @@ public class Kiosk {
 			return null;
 		}
 	}
+	
+	@Override
+	public void successDelivery(String locate, String menuName) {
+		System.out.println(locate+" 주로소 "+menuName+" 배달 주문이 완료되었습니다. ");
+	}
+	
+	@Override
+	public void successTakeout(int time, String menuName) {
+		System.out.println(time +"분 후 포장 주문이 완료되었습니다. ");
+
+	}
+	
+	@Override
+	public void successHere(int orderNum, String menuName) {
+		System.out.println(orderNum+" 주문번호로 "+menuName+" 매장 주문이 완료되었습니다. ");
+	}
+
+	
+
+	
 }

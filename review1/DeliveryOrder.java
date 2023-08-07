@@ -2,10 +2,20 @@ package review1;
 
 public class DeliveryOrder extends Order {
 	String locate;
+	OnDelivery onDelivery;
 
 	public DeliveryOrder(String menuName, int count, int price) {
 		super(menuName, count, price);
 	}
+	
+	public interface OnDelivery {
+		public void successDelivery(String locate, String menuName);
+	}
+	
+	public void setOnDelivery (OnDelivery onDelivery) {
+		this.onDelivery = onDelivery;
+	}
+	
 	
 	@Override
 	protected void setOrderPrice(int price) {
@@ -24,15 +34,12 @@ public class DeliveryOrder extends Order {
 	public boolean runOrder (int deposit) {
 		// 입금 금액이 주문 금액보다 크면 잔돈 출력/ 적으면 금액 부족 출력
 		if (deposit == orderPrice) {
-			System.out.println(locate+" 주로소 "+menuName+" 배달 주문이 완료되었습니다. ");
+			onDelivery.successDelivery(locate, menuName);
 			return true;
 		} else {
 			System.out.println("정확한 금액을 결제해주세요. ");
 			return false;
 		}
 	}	
-	
-
-
 
 }
