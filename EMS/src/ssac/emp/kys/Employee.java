@@ -1,8 +1,5 @@
 package ssac.emp.kys;
 
-import java.util.Map;
-import java.util.TreeMap;
-
 public class Employee {
 	private String name;
 	private String sabun;
@@ -52,6 +49,13 @@ public class Employee {
 
 	public void setAddr(String addr) {
 		this.addr = addr;
+	}
+	
+	public String toString(String name) {
+		return "이름-"+getName()
+				+" 사번-"+getSabun()
+				+" 휴대폰 번호-"+getPhone()
+				+" 주소-"+getAddr();
 	}
 
 
